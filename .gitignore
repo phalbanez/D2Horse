@@ -1,0 +1,50 @@
+# Arquivos de configurações de usuário do Delphi IDE
+*.dsk
+*.identcache
+__history/
+*.local
+
+# Arquivos compilados e executáveis
+*.exe
+*.dll
+*.bpl
+*.dcp
+*.obj
+*.res
+*.tds
+*.map
+*.stat
+*.dbg
+*.drc
+
+# Arquivos de backup
+*.bak
+*.~*
+
+# Arquivos de cache e temporários
+*.dfm.local
+*.log
+*.doff
+*.so
+*.dylib
+*.o
+*.pch
+
+# Pastas de saída da compilação
+Debug/
+Release/
+Win32/
+Win64/
+iOSDevice/
+iOSSimulator/
+Android/
+Linux/
+
+# Pastas de pacotes
+Packages/
+
+# Banco de dados
+*.fdb
+
+# Pasta de modulos
+modules/
