@@ -1,6 +1,5 @@
 inherited ServiceProduct: TServiceProduct
   inherited Connection: TFDConnection
-    Connected = True
     Left = 64
   end
   inherited qryPesquisa: TFDQuery
@@ -105,6 +104,7 @@ inherited ServiceProduct: TServiceProduct
     Top = 107
   end
   object qryImages: TFDQuery
+    ActiveStoredUsage = []
     IndexFieldNames = 'PRODUCT_ID'
     MasterSource = dsCadastro
     MasterFields = 'ID'

@@ -7,7 +7,7 @@ uses
   FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool,
   FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.FB, FireDAC.Phys.FBDef, FireDAC.ConsoleUI.Wait,
   FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client, FireDAC.VCLUI.Wait;
+  FireDAC.Comp.Client, FireDAC.VCLUI.Wait, System.JSON;
 
 type
   TServiceProduct = class(TProviderCrud)
@@ -34,12 +34,21 @@ type
   private
     { Private declarations }
   public
+    function Append(const AValue: TJSONObject): Boolean; override;
     function GetById(const AId: Integer): TDataSet; override;
   end;
 
 implementation
 
 {$R *.dfm}
+
+function TServiceProduct.Append(const AValue: TJSONObject): Boolean;
+begin
+  qryImages.ParamByName('product_id').AsInteger := -1;
+  qryImages.Open;
+
+  Result := inherited Append(AValue);
+end;
 
 function TServiceProduct.GetById(const AId: Integer): TDataSet;
 begin
