@@ -1,6 +1,7 @@
 inherited ServiceProduct: TServiceProduct
   inherited Connection: TFDConnection
     Connected = True
+    Left = 64
   end
   inherited qryPesquisa: TFDQuery
     SQL.Strings = (
@@ -97,5 +98,48 @@ inherited ServiceProduct: TServiceProduct
   inherited qryRecordCount: TFDQuery
     SQL.Strings = (
       'select count(*) from product')
+  end
+  object dsCadastro: TDataSource
+    DataSet = qryCadastro
+    Left = 280
+    Top = 107
+  end
+  object qryImages: TFDQuery
+    IndexFieldNames = 'PRODUCT_ID'
+    MasterSource = dsCadastro
+    MasterFields = 'ID'
+    DetailFields = 'PRODUCT_ID'
+    Connection = Connection
+    SQL.Strings = (
+      'select id, product_id, image_path'
+      'from product_image'
+      'where product_id = :product_id ')
+    Left = 64
+    Top = 104
+    ParamData = <
+      item
+        Name = 'PRODUCT_ID'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
+    object qryImagesID: TIntegerField
+      AutoGenerateValue = arAutoInc
+      FieldName = 'ID'
+      Origin = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object qryImagesPRODUCT_ID: TIntegerField
+      FieldName = 'PRODUCT_ID'
+      Origin = 'PRODUCT_ID'
+      Required = True
+      Visible = False
+    end
+    object qryImagesIMAGE_PATH: TWideStringField
+      FieldName = 'IMAGE_PATH'
+      Origin = 'IMAGE_PATH'
+      Size = 250
+    end
   end
 end

@@ -26,14 +26,29 @@ type
     qryPesquisaPRICE: TSingleField;
     qryPesquisaIMAGE_PATH: TWideStringField;
     qryPesquisaQUANTITY: TFloatField;
+    dsCadastro: TDataSource;
+    qryImages: TFDQuery;
+    qryImagesID: TIntegerField;
+    qryImagesPRODUCT_ID: TIntegerField;
+    qryImagesIMAGE_PATH: TWideStringField;
   private
     { Private declarations }
   public
-    { Public declarations }
+    function GetById(const AId: Integer): TDataSet; override;
   end;
 
 implementation
 
 {$R *.dfm}
+
+function TServiceProduct.GetById(const AId: Integer): TDataSet;
+begin
+  Result := inherited GetById(AId);
+
+  if (Result.IsEmpty) then Exit;
+
+  qryImages.ParamByName('product_id').AsInteger := AId;
+  qryImages.Open;
+end;
 
 end.
