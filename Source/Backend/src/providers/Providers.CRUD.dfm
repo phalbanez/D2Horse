@@ -6,6 +6,10 @@ inherited ProviderCrud: TProviderCrud
   object qryPesquisa: TFDQuery
     ActiveStoredUsage = []
     Connection = Connection
+    UpdateOptions.AssignedValues = [uvEDelete, uvEInsert, uvEUpdate]
+    UpdateOptions.EnableDelete = False
+    UpdateOptions.EnableInsert = False
+    UpdateOptions.EnableUpdate = False
     Left = 178
     Top = 32
   end
@@ -18,6 +22,10 @@ inherited ProviderCrud: TProviderCrud
   object qryRecordCount: TFDQuery
     ActiveStoredUsage = []
     Connection = Connection
+    UpdateOptions.AssignedValues = [uvEDelete, uvEInsert, uvEUpdate]
+    UpdateOptions.EnableDelete = False
+    UpdateOptions.EnableInsert = False
+    UpdateOptions.EnableUpdate = False
     Left = 178
     Top = 104
     object qryRecordCountCOUNT: TLargeintField
