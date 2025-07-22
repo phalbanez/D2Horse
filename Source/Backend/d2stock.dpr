@@ -18,7 +18,9 @@ uses
   Services.Users in 'src\services\Services.Users.pas' {ServiceUser: TDataModule},
   Controllers.Users in 'src\controllers\Controllers.Users.pas',
   Services.Categories in 'src\services\Services.Categories.pas' {ServiceCategory: TDataModule},
-  Controllers.Categories in 'src\controllers\Controllers.Categories.pas';
+  Controllers.Categories in 'src\controllers\Controllers.Categories.pas',
+  Services.Products in 'src\services\Services.Products.pas' {ServiceProduct: TDataModule},
+  Controllers.Products in 'src\controllers\Controllers.Products.pas';
 
 begin
   THorse.Use(Jhonson())
@@ -29,6 +31,7 @@ begin
   Controllers.Business.Registry;
   Controllers.Users.Registry;
   Controllers.Categories.Registry;
+  Controllers.Products.Registry;
 
   THorse.Listen(9000,
     procedure
