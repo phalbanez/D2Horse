@@ -24,6 +24,8 @@ type
     qryPesquisaBARCODE: TWideStringField;
     qryPesquisaACTIVE: TBooleanField;
     qryPesquisaPRICE: TSingleField;
+    qryPesquisaIMAGE_PATH: TWideStringField;
+    qryPesquisaQUANTITY: TFloatField;
   private
     { Private declarations }
   public

@@ -4,7 +4,11 @@ inherited ServiceProduct: TServiceProduct
   end
   inherited qryPesquisa: TFDQuery
     SQL.Strings = (
-      'select id, category_id, name, barcode, active, price '
+      'select id, category_id, name, barcode, active, price, '
+      '       (select first 1 image_path from product_image'
+      '        where product_id = product.id) as image_path,'
+      '       (select coalesce(sum(quantity), 0) from stock'
+      '        where product_id = product.id) as quantity   '
       'from product')
     object qryPesquisaID: TIntegerField
       FieldName = 'ID'
@@ -33,6 +37,21 @@ inherited ServiceProduct: TServiceProduct
     object qryPesquisaPRICE: TSingleField
       FieldName = 'PRICE'
       Origin = 'PRICE'
+    end
+    object qryPesquisaIMAGE_PATH: TWideStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'IMAGE_PATH'
+      Origin = 'IMAGE_PATH'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 250
+    end
+    object qryPesquisaQUANTITY: TFloatField
+      AutoGenerateValue = arDefault
+      FieldName = 'QUANTITY'
+      Origin = 'QUANTITY'
+      ProviderFlags = []
+      ReadOnly = True
     end
   end
   inherited qryCadastro: TFDQuery
