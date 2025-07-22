@@ -20,7 +20,9 @@ uses
   Services.Categories in 'src\services\Services.Categories.pas' {ServiceCategory: TDataModule},
   Controllers.Categories in 'src\controllers\Controllers.Categories.pas',
   Services.Products in 'src\services\Services.Products.pas' {ServiceProduct: TDataModule},
-  Controllers.Products in 'src\controllers\Controllers.Products.pas';
+  Controllers.Products in 'src\controllers\Controllers.Products.pas',
+  Services.Stock in 'src\services\Services.Stock.pas' {ServiceStock: TDataModule},
+  Controllers.Stock in 'src\controllers\Controllers.Stock.pas';
 
 begin
   THorse.Use(Jhonson())
@@ -32,6 +34,7 @@ begin
   Controllers.Users.Registry;
   Controllers.Categories.Registry;
   Controllers.Products.Registry;
+  Controllers.Stock.Registry;
 
   THorse.Listen(9000,
     procedure
