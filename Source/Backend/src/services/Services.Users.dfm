@@ -1,11 +1,9 @@
 inherited ServiceUser: TServiceUser
-  inherited Connection: TFDConnection
-    Connected = True
-  end
   inherited qryPesquisa: TFDQuery
     SQL.Strings = (
       'select id, name, email, active, administrator '
-      'from users ')
+      'from users'
+      'where id > 0 ')
     object qryPesquisaID: TIntegerField
       FieldName = 'ID'
       Origin = 'ID'
@@ -79,6 +77,7 @@ inherited ServiceUser: TServiceUser
   end
   inherited qryRecordCount: TFDQuery
     SQL.Strings = (
-      'select count(*) from users ')
+      'select count(*) from users'
+      'where id > 0')
   end
 end

@@ -6,7 +6,8 @@ inherited ServiceStock: TServiceStock
     SQL.Strings = (
       'select id, product_id, business_id, user_id, operation_date,'
       '  quantity, operation  '
-      'from stock')
+      'from stock'
+      'where id > 0')
     object qryPesquisaID: TIntegerField
       FieldName = 'ID'
       Origin = 'ID'
@@ -84,6 +85,7 @@ inherited ServiceStock: TServiceStock
   end
   inherited qryRecordCount: TFDQuery
     SQL.Strings = (
-      'select count(*) from stock')
+      'select count(*) from stock'
+      'where id > 0')
   end
 end

@@ -12,12 +12,13 @@ uses
 procedure ListAll(Req: THorseRequest; Res: THorseResponse);
 var
   LService: TServiceStock;
+  LData: TJSONObject;
 begin
   LService := TServiceStock.Create();
   try
-    var
-    LData := TJSONObject.Create.AddPair('data', LService.ListAll(Req.Query.Dictionary).ToJSONArray()
-      ).AddPair('records', LService.GetRecordCount);
+    LData := TJSONObject.Create;
+    LData.AddPair('data', LService.ListAll(Req.Query.Dictionary).ToJSONArray());
+    LData.AddPair('records', LService.GetRecordCount);
 
     Res.Send<TJSONObject>(LData);
   finally

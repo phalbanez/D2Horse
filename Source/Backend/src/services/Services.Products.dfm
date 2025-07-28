@@ -9,7 +9,8 @@ inherited ServiceProduct: TServiceProduct
       '        where product_id = product.id) as image_path,'
       '       (select coalesce(sum(quantity), 0) from stock'
       '        where product_id = product.id) as quantity   '
-      'from product')
+      'from product'
+      'where id > 0')
     object qryPesquisaID: TIntegerField
       FieldName = 'ID'
       Origin = 'ID'
@@ -96,7 +97,8 @@ inherited ServiceProduct: TServiceProduct
   end
   inherited qryRecordCount: TFDQuery
     SQL.Strings = (
-      'select count(*) from product')
+      'select count(*) from product'
+      'where id > 0')
   end
   object dsCadastro: TDataSource
     DataSet = qryCadastro

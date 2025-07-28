@@ -1,11 +1,9 @@
 inherited ServiceCategory: TServiceCategory
-  inherited Connection: TFDConnection
-    Connected = True
-  end
   inherited qryPesquisa: TFDQuery
     SQL.Strings = (
       'select id, name, active '
-      'from product_category')
+      'from product_category'
+      'where id > 0')
     object qryPesquisaID: TIntegerField
       FieldName = 'ID'
       Origin = 'ID'
@@ -45,6 +43,7 @@ inherited ServiceCategory: TServiceCategory
   end
   inherited qryRecordCount: TFDQuery
     SQL.Strings = (
-      'select count(*) from product_category')
+      'select count(*) from product_category'
+      'where id > 0')
   end
 end

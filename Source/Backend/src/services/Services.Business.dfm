@@ -1,11 +1,9 @@
 inherited ServiceBusiness: TServiceBusiness
-  inherited Connection: TFDConnection
-    Connected = True
-  end
   inherited qryPesquisa: TFDQuery
     SQL.Strings = (
       'select id, name, active'
-      'from business')
+      'from business'
+      'where id > 0')
     object qryPesquisaID: TIntegerField
       FieldName = 'ID'
       Origin = 'ID'
@@ -45,6 +43,7 @@ inherited ServiceBusiness: TServiceBusiness
   end
   inherited qryRecordCount: TFDQuery
     SQL.Strings = (
-      'select count(*) from business ')
+      'select count(*) from business'
+      'where id > 0 ')
   end
 end

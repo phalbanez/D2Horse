@@ -18,6 +18,8 @@ type
   private
     procedure SetOrdenation(const AQuery: TFDQuery; const AQueryParam: TDictionary<string, string>);
     procedure SetPagination(const AQuery: TFDQuery; const AQueryParam: TDictionary<string, string>);
+  protected
+    function GetQuerysFilters: TArray<TFDQuery>;
   public
     function Append(const AValue: TJSONObject): Boolean; virtual;
     function Update(const AValue: TJSONObject): Boolean; virtual;
@@ -54,6 +56,11 @@ begin
   qryCadastro.ParamByName('id').AsInteger := AId;
   qryCadastro.Open();
   Result := qryCadastro;
+end;
+
+function TProviderCrud.GetQuerysFilters: TArray<TFDQuery>;
+begin
+  Result := [qryPesquisa, qryRecordCount];
 end;
 
 function TProviderCrud.GetRecordCount: Int64;
