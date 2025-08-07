@@ -35,6 +35,12 @@ begin
       LQuery.ParamByName('id').AsInteger := AQueryParams.Items['id'].ToInteger;
     end;
 
+    if AQueryParams.ContainsKey('active') then
+    begin
+      LQuery.SQL.Add(' and active = :active');
+      LQuery.ParamByName('active').AsBoolean := AQueryParams.Items['active'].ToBoolean;
+    end;
+
     if AQueryParams.ContainsKey('name') then
     begin
       LQuery.SQL.Add(' and name containing(:name)');

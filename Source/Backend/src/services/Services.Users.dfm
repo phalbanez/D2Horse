@@ -32,7 +32,10 @@ inherited ServiceUser: TServiceUser
   inherited qryCadastro: TFDQuery
     SQL.Strings = (
       'select id, name, email, password, active, business_id, '
-      '  image_path, administrator'
+      '  image_path, administrator,'
+      
+        '  (select name from business where id = users.business_id) as bu' +
+        'siness_name'
       'from users')
     object qryCadastroID: TIntegerField
       AutoGenerateValue = arAutoInc
@@ -73,6 +76,14 @@ inherited ServiceUser: TServiceUser
     object qryCadastroADMINISTRATOR: TBooleanField
       FieldName = 'ADMINISTRATOR'
       Origin = 'ADMINISTRATOR'
+    end
+    object qryCadastroBUSINESS_NAME: TWideStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'BUSINESS_NAME'
+      Origin = 'NAME'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
     end
   end
   inherited qryRecordCount: TFDQuery

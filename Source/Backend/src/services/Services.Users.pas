@@ -24,6 +24,7 @@ type
     qryCadastroBUSINESS_ID: TIntegerField;
     qryCadastroIMAGE_PATH: TWideStringField;
     qryCadastroADMINISTRATOR: TBooleanField;
+    qryCadastroBUSINESS_NAME: TWideStringField;
   private
     { Private declarations }
   public
@@ -65,6 +66,8 @@ begin
     LJWT.Claims.Subject := qryCadastroID.AsString;
     LJWT.Claims.SetClaimOfType<string>('email', qryCadastroEMAIL.AsString);
     LJWT.Claims.SetClaimOfType<string>('name', qryCadastroNAME.AsString);
+    LJWT.Claims.SetClaimOfType<Integer>('businessId', qryCadastroBUSINESS_ID.AsInteger);
+    LJWT.Claims.SetClaimOfType<string>('businessName', qryCadastroBUSINESS_NAME.AsString);
     LJWT.Claims.SetClaimOfType<Boolean>('administrator', qryCadastroADMINISTRATOR.AsBoolean);
 
     Result := TJOSE.SHA256CompactToken(SECRET_KEY_JWT, LJWT);
@@ -122,6 +125,18 @@ begin
     begin
       LQuery.SQL.Add(' and name containing(:name)');
       LQuery.ParamByName('name').AsString := AQueryParams.Items['name'];
+    end;
+
+    if AQueryParams.ContainsKey('business_id') then
+    begin
+      LQuery.SQL.Add(' and business_id = :business_id');
+      LQuery.ParamByName('business_id').AsInteger := AQueryParams.Items['business_id'].ToInteger;
+    end;
+
+    if AQueryParams.ContainsKey('email') then
+    begin
+      LQuery.SQL.Add(' and email = :email');
+      LQuery.ParamByName('email').AsString := AQueryParams.Items['email'];
     end;
   end;
 

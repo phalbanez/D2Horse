@@ -7,7 +7,7 @@ procedure Register;
 implementation
 
 uses
-  System.SysUtils, System.JSON, Horse, Services.Users;
+  System.SysUtils, System.JSON, Horse, Services.Users, Data.DB;
 
 procedure Login(Req: THorseRequest; Res: THorseResponse);
 var

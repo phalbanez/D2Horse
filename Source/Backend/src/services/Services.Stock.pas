@@ -25,6 +25,9 @@ type
     qryCadastroOPERATION_DATE: TSQLTimeStampField;
     qryCadastroQUANTITY: TSingleField;
     qryCadastroOPERATION: TWideStringField;
+    qryPesquisaBUSINESS_NAME: TWideStringField;
+    qryPesquisaUSER_NAME: TWideStringField;
+    qryPesquisaPRODUCT_NAME: TWideStringField;
     procedure qryCadastroBeforePost(DataSet: TDataSet);
   private
   public

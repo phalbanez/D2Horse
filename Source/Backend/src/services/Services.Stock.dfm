@@ -5,7 +5,16 @@ inherited ServiceStock: TServiceStock
   inherited qryPesquisa: TFDQuery
     SQL.Strings = (
       'select id, product_id, business_id, user_id, operation_date,'
-      '  quantity, operation  '
+      '  quantity, operation,'
+      
+        '  (select name from business where id = stock.business_id) as bu' +
+        'siness_name,'
+      
+        '  (select name from users where id = stock.user_id) as user_name' +
+        ','
+      
+        '  (select name from product where id = stock.product_id) as prod' +
+        'uct_name  '
       'from stock'
       'where id > 0')
     object qryPesquisaID: TIntegerField
@@ -40,6 +49,30 @@ inherited ServiceStock: TServiceStock
     object qryPesquisaOPERATION: TWideStringField
       FieldName = 'OPERATION'
       Origin = 'OPERATION'
+    end
+    object qryPesquisaBUSINESS_NAME: TWideStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'BUSINESS_NAME'
+      Origin = 'NAME'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 100
+    end
+    object qryPesquisaUSER_NAME: TWideStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'USER_NAME'
+      Origin = 'NAME'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 150
+    end
+    object qryPesquisaPRODUCT_NAME: TWideStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'PRODUCT_NAME'
+      Origin = 'NAME'
+      ProviderFlags = []
+      ReadOnly = True
+      Size = 150
     end
   end
   inherited qryCadastro: TFDQuery
