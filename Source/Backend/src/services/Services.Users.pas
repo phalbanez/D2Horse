@@ -32,11 +32,17 @@ type
     function Update(const AValue: TJSONObject): Boolean; override;
     function GetById(const AId: Integer): TDataSet; override;
     function ListAll(const AQueryParams: TDictionary<string, string>): TDataSet; override;
+    function IsValidUser(const AEmail, APassword: string): Boolean;
+    function GetAccessToken: string;
+    function GetRefreshToken: string;
   end;
 
 implementation
 
 {$R *.dfm}
+
+uses
+  System.DateUtils, JOSE.Core.JWT, JOSE.Core.Builder;
 
 { TServiceUser }
 
@@ -47,10 +53,59 @@ begin
   qryCadastroPASSWORD.Visible := False;
 end;
 
+function TServiceUser.GetAccessToken: string;
+var
+  LJWT: TJWT;
+begin
+  LJWT := TJWT.Create;
+  try
+    LJWT.Claims.IssuedAt := Now;
+    LJWT.Claims.Expiration := IncHour(Now, 1);
+    LJWT.Claims.Issuer := 'd2stock';
+    LJWT.Claims.Subject := qryCadastroID.AsString;
+    LJWT.Claims.SetClaimOfType<string>('email', qryCadastroEMAIL.AsString);
+    LJWT.Claims.SetClaimOfType<string>('name', qryCadastroNAME.AsString);
+    LJWT.Claims.SetClaimOfType<Boolean>('administrator', qryCadastroADMINISTRATOR.AsBoolean);
+
+    Result := TJOSE.SHA256CompactToken('my-secret-key', LJWT);
+  finally
+    LJWT.Free;
+  end;
+end;
+
 function TServiceUser.GetById(const AId: Integer): TDataSet;
 begin
   qryCadastroPASSWORD.Visible := False;
   Result := inherited GetById(AId);
+end;
+
+function TServiceUser.GetRefreshToken: string;
+var
+  LJWT: TJWT;
+begin
+  LJWT := TJWT.Create;
+  try
+    LJWT.Claims.IssuedAt := Now;
+    LJWT.Claims.Expiration := IncDay(Now, 1);
+    LJWT.Claims.Issuer := 'd2stock';
+    LJWT.Claims.Subject := qryCadastroID.AsString;
+
+    Result := TJOSE.SHA256CompactToken('my-secret-key', LJWT);
+  finally
+    LJWT.Free;
+  end;
+end;
+
+function TServiceUser.IsValidUser(const AEmail, APassword: string): Boolean;
+begin
+  qryCadastro.SQL.Add('where email = :email');
+  qryCadastro.SQL.Add('  and password = :password');
+  qryCadastro.SQL.Add('  and active = true');
+  qryCadastro.ParamByName('email').AsString := AEmail;
+  qryCadastro.ParamByName('password').AsString := APassword;
+  qryCadastro.Open;
+
+  Result := not qryCadastro.IsEmpty;
 end;
 
 function TServiceUser.ListAll(const AQueryParams: TDictionary<string, string>): TDataSet;

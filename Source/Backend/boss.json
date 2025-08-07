@@ -9,6 +9,7 @@
 		"github.com/hashload/handle-exception": "^0.1.9",
 		"github.com/hashload/horse": "^3.1.6",
 		"github.com/hashload/jhonson": "^1.1.9",
+		"github.com/paolo-rossi/delphi-jose-jwt": "^v3.3.1",
 		"github.com/viniciussanchez/dataset-serialize": "^v2.5.9"
 	}
 }
