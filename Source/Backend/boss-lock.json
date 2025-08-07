@@ -2,6 +2,14 @@
 	"hash": "d41d8cd98f00b204e9800998ecf8427e",
 	"updated": "2025-07-15T11:05:09.0810373-03:00",
 	"installedModules": {
+		"github.com/andre-djsystem/hashlib4pascal": {
+			"name": "hashlib4pascal",
+			"version": "1.0.0",
+			"hash": "8528036224699ab509c7d8f31d691ffb",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		},
 		"github.com/hashload/handle-exception": {
 			"name": "handle-exception",
 			"version": "0.1.9",
@@ -14,6 +22,14 @@
 			"name": "horse",
 			"version": "3.1.6",
 			"hash": "7fdacf6b762af6406e17d06e1c5fb0a1",
+			"artifacts": {},
+			"failed": false,
+			"changed": false
+		},
+		"github.com/hashload/horse-jwt": {
+			"name": "horse-jwt",
+			"version": "2.0.17",
+			"hash": "a3ecf918269e5a7d587afbaa2a8cfd33",
 			"artifacts": {},
 			"failed": false,
 			"changed": false

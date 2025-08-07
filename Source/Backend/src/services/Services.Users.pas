@@ -42,7 +42,7 @@ implementation
 {$R *.dfm}
 
 uses
-  System.DateUtils, JOSE.Core.JWT, JOSE.Core.Builder;
+  System.DateUtils, JOSE.Core.JWT, JOSE.Core.Builder, Providers.Consts;
 
 { TServiceUser }
 
@@ -67,7 +67,7 @@ begin
     LJWT.Claims.SetClaimOfType<string>('name', qryCadastroNAME.AsString);
     LJWT.Claims.SetClaimOfType<Boolean>('administrator', qryCadastroADMINISTRATOR.AsBoolean);
 
-    Result := TJOSE.SHA256CompactToken('my-secret-key', LJWT);
+    Result := TJOSE.SHA256CompactToken(SECRET_KEY_JWT, LJWT);
   finally
     LJWT.Free;
   end;
@@ -90,7 +90,7 @@ begin
     LJWT.Claims.Issuer := 'd2stock';
     LJWT.Claims.Subject := qryCadastroID.AsString;
 
-    Result := TJOSE.SHA256CompactToken('my-secret-key', LJWT);
+    Result := TJOSE.SHA256CompactToken(SECRET_KEY_JWT, LJWT);
   finally
     LJWT.Free;
   end;

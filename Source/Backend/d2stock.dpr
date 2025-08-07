@@ -10,6 +10,7 @@ uses
   Horse,
   Horse.Jhonson,
   Horse.HandleException,
+  Horse.JWT,
   Providers.Connection in 'src\providers\Providers.Connection.pas' {ProviderConnection: TDataModule},
   Controllers.Ping in 'src\controllers\Controllers.Ping.pas',
   Providers.CRUD in 'src\providers\Providers.CRUD.pas' {ProviderCrud: TDataModule},
@@ -25,12 +26,13 @@ uses
   Controllers.Stock in 'src\controllers\Controllers.Stock.pas',
   Services.Dashboard in 'src\services\Services.Dashboard.pas' {ServiceDashboard: TDataModule},
   Controllers.Dashboard in 'src\controllers\Controllers.Dashboard.pas',
-  Controllers.Auth in 'src\controllers\Controllers.Auth.pas';
+  Controllers.Auth in 'src\controllers\Controllers.Auth.pas',
+  Providers.Consts in 'src\providers\Providers.Consts.pas';
 
 begin
-  THorse.Use(Jhonson())
-  // Use(Jhonson('UTF-8'));
-  .Use(HandleException);
+  THorse.Use(Jhonson('UTF-8'));
+  THorse.Use(HandleException);
+  THorse.Use(HorseJWT(SECRET_KEY_JWT, THorseJWTConfig.New.SkipRoutes(['/ping', '/login'])));
 
   Controllers.Ping.Registry;
   Controllers.Business.Registry;
